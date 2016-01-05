@@ -77,9 +77,19 @@ See the `Celery docs`_ for more info.
 ``len(results)`` will be the number of emails you attempted to send, and is in no way a reflection on the success or failure 
 of their delivery.
 
+.. warning::
+
+	If using this project in conjunction with another backend (`django-email-log`_ for example) then it might be preferable to use::
+
+	    EMAIL_BACKEND = 'email_log.backends.EmailBackend'
+	    EMAIL_LOG_BACKEND = 'djcelery_email.backends.CompatibleCeleryEmailBackend'
+
+	This behaves more like Django's bundled backends and returns ``len(results)`` as documented above.
+
 .. _`Celery Task`: http://celery.readthedocs.org/en/latest/userguide/tasks.html#basics
 .. _`Celery docs`: http://celery.readthedocs.org/en/latest/userguide/tasks.html#task-states
 .. _`AsyncResult`: http://celery.readthedocs.org/en/latest/reference/celery.result.html#celery.result.AsyncResult
+.. _`django-email-log`: https://django-email-log.readthedocs.org/en/latest/
 
 Changelog
 =========
